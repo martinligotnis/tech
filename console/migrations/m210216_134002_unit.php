@@ -17,6 +17,7 @@ class m210216_134002_unit extends Migration
 
         $this->createTable('{{%unit}}', [
             'id' => $this->primaryKey(),
+            'equipment_id' => $this->integer(),
             'name' => $this->string(100)->notNull(),
             'unit_type_id' => $this->integer()->notNull(),
             'function' => $this->text()->notNull(),
@@ -41,6 +42,23 @@ class m210216_134002_unit extends Migration
             'id',
             'CASCADE'
         );
+
+        // creates index for column `equipment_id`
+        $this->createIndex(
+            '{{%idx-unit-equipment_id}}',
+            '{{%unit}}',
+            'equipment_id'
+        );
+
+        // add foreign key for table `{{%equipment}}`
+        $this->addForeignKey(
+            '{{%fk-unit-equipment_id}}',
+            '{{%unit}}',
+            'equipment_id',
+            '{{%equipment}}',
+            'id',
+            'CASCADE'
+        );
     }
 
     public function down()
@@ -54,6 +72,18 @@ class m210216_134002_unit extends Migration
         // drops index for column `unit`
         $this->dropIndex(
             '{{%idx-unit-unit_type_id}}',
+            '{{%unit}}'
+        );
+
+         // drops foreign key for table `{{%equipment}}`
+         $this->dropForeignKey(
+            '{{%fk-unit-equipment_id}}',
+            '{{%unit}}'
+        );
+
+        // drops index for column `equipment_id`
+        $this->dropIndex(
+            '{{%idx-unit-equipment_id}}',
             '{{%unit}}'
         );
 

@@ -4,18 +4,18 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel backend\models\SparePartSearch */
+/* @var $searchModel backend\models\EquipmentSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Spare Parts';
+$this->title = 'Equipments';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="spare-part-index">
+<div class="equipment-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Spare Part', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Equipment', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -26,12 +26,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'producer',
-            'model',
-            'description:ntext',
-            'unit_type_id',
-            //'unit_id',
+            'name',
+            [
+                'attribute' => 'production_line_id',
+                'value' => 'productionLine.name',
+                'label' => 'Ražošanas līnija'
+            ],  
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

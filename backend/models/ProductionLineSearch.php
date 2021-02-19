@@ -4,12 +4,12 @@ namespace backend\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\SparePart;
+use backend\models\ProductionLine;
 
 /**
- * SparePartSearch represents the model behind the search form of `backend\models\SparePart`.
+ * ProductionLineSearch represents the model behind the search form of `backend\models\ProductionLine`.
  */
-class SparePartSearch extends SparePart
+class ProductionLineSearch extends ProductionLine
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class SparePartSearch extends SparePart
     public function rules()
     {
         return [
-            [['id', 'unit_type_id', 'unit_id'], 'integer'],
-            [['producer', 'model', 'description'], 'safe'],
+            [['id'], 'integer'],
+            [['name'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class SparePartSearch extends SparePart
      */
     public function search($params)
     {
-        $query = SparePart::find();
+        $query = ProductionLine::find();
 
         // add conditions that should always apply here
 
@@ -59,13 +59,9 @@ class SparePartSearch extends SparePart
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'unit_type_id' => $this->unit_type_id,
-            'unit_id' => $this->unit_id,
         ]);
 
-        $query->andFilterWhere(['like', 'producer', $this->producer])
-            ->andFilterWhere(['like', 'model', $this->model])
-            ->andFilterWhere(['like', 'description', $this->description]);
+        $query->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;
     }

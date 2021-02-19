@@ -10,6 +10,7 @@ use Yii;
  * @property int $id
  * @property string $name
  *
+ * @property Equipment[] $equipments
  * @property ProductionLineEquipment[] $productionLineEquipments
  * @property Equipment[] $equipment
  */
@@ -44,6 +45,16 @@ class ProductionLine extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
         ];
+    }
+
+    /**
+     * Gets query for [[Equipments]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEquipments()
+    {
+        return $this->hasMany(Equipment::className(), ['production_line_id' => 'id']);
     }
 
     /**

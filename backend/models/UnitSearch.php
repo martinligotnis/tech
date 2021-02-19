@@ -4,12 +4,12 @@ namespace backend\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\SparePart;
+use backend\models\Unit;
 
 /**
- * SparePartSearch represents the model behind the search form of `backend\models\SparePart`.
+ * UnitSearch represents the model behind the search form of `backend\models\Unit`.
  */
-class SparePartSearch extends SparePart
+class UnitSearch extends Unit
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class SparePartSearch extends SparePart
     public function rules()
     {
         return [
-            [['id', 'unit_type_id', 'unit_id'], 'integer'],
-            [['producer', 'model', 'description'], 'safe'],
+            [['id', 'equipment_id', 'unit_type_id', 'service_interval', 'installation_date', 'last_maintenance'], 'integer'],
+            [['name', 'function'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class SparePartSearch extends SparePart
      */
     public function search($params)
     {
-        $query = SparePart::find();
+        $query = Unit::find();
 
         // add conditions that should always apply here
 
@@ -59,13 +59,15 @@ class SparePartSearch extends SparePart
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'equipment_id' => $this->equipment_id,
             'unit_type_id' => $this->unit_type_id,
-            'unit_id' => $this->unit_id,
+            'service_interval' => $this->service_interval,
+            'installation_date' => $this->installation_date,
+            'last_maintenance' => $this->last_maintenance,
         ]);
 
-        $query->andFilterWhere(['like', 'producer', $this->producer])
-            ->andFilterWhere(['like', 'model', $this->model])
-            ->andFilterWhere(['like', 'description', $this->description]);
+        $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'function', $this->function]);
 
         return $dataProvider;
     }

@@ -9,11 +9,14 @@ use Yii;
  *
  * @property int $id
  * @property string $name
+ * @property int|null $production_line_id
  *
+ * @property ProductionLine $productionLine
  * @property ProductionLineEquipment[] $productionLineEquipments
  * @property ProductionLine[] $productionLines
- * @property UnitEquipment[] $unitEquipments
  * @property Unit[] $units
+ * @property UnitEquipment[] $unitEquipments
+ * @property Unit[] $units0
  */
 class Equipment extends \yii\db\ActiveRecord
 {
@@ -32,8 +35,9 @@ class Equipment extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
+            [['production_line_id'], 'integer'],
             [['name'], 'string', 'max' => 100],
-            [['name'], 'unique'],
+            [['production_line_id'], 'exist', 'skipOnError' => true, 'targetClass' => ProductionLine::className(), 'targetAttribute' => ['production_line_id' => 'id']],
         ];
     }
 
@@ -45,7 +49,18 @@ class Equipment extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
+            'production_line_id' => 'Production Line ID',
         ];
+    }
+
+    /**
+     * Gets query for [[ProductionLine]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProductionLine()
+    {
+        return $this->hasOne(ProductionLine::className(), ['id' => 'production_line_id']);
     }
 
     /**
@@ -69,6 +84,16 @@ class Equipment extends \yii\db\ActiveRecord
     }
 
     /**
+     * Gets query for [[Units]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUnits()
+    {
+        return $this->hasMany(Unit::className(), ['equipment_id' => 'id']);
+    }
+
+    /**
      * Gets query for [[UnitEquipments]].
      *
      * @return \yii\db\ActiveQuery
@@ -79,11 +104,11 @@ class Equipment extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Units]].
+     * Gets query for [[Units0]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getUnits()
+    public function getUnits0()
     {
         return $this->hasMany(Unit::className(), ['id' => 'unit_id'])->viaTable('unit_equipment', ['equipment_id' => 'id']);
     }

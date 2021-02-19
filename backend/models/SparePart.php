@@ -12,7 +12,9 @@ use Yii;
  * @property string $model
  * @property string|null $description
  * @property int $unit_type_id
+ * @property int $unit_id
  *
+ * @property Unit $unit
  * @property UnitType $unitType
  */
 class SparePart extends \yii\db\ActiveRecord
@@ -31,10 +33,11 @@ class SparePart extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['producer', 'model', 'unit_type_id'], 'required'],
+            [['producer', 'model', 'unit_type_id', 'unit_id'], 'required'],
             [['description'], 'string'],
-            [['unit_type_id'], 'integer'],
+            [['unit_type_id', 'unit_id'], 'integer'],
             [['producer', 'model'], 'string', 'max' => 100],
+            [['unit_id'], 'exist', 'skipOnError' => true, 'targetClass' => Unit::className(), 'targetAttribute' => ['unit_id' => 'id']],
             [['unit_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => UnitType::className(), 'targetAttribute' => ['unit_type_id' => 'id']],
         ];
     }
@@ -50,7 +53,18 @@ class SparePart extends \yii\db\ActiveRecord
             'model' => 'Model',
             'description' => 'Description',
             'unit_type_id' => 'Unit Type ID',
+            'unit_id' => 'Unit ID',
         ];
+    }
+
+    /**
+     * Gets query for [[Unit]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUnit()
+    {
+        return $this->hasOne(Unit::className(), ['id' => 'unit_id']);
     }
 
     /**

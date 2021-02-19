@@ -20,10 +20,11 @@ class m210216_145600_spare_part extends Migration
             'producer' => $this->string(100)->notNull(),
             'model' => $this->string(100)->notNull(),
             'description' => $this->text(),
-            'unit_type_id' => $this->integer()->notNull()
+            'unit_type_id' => $this->integer()->notNull(),
+            'unit_id' => $this->integer()->notNull()
         ], $tableOptions);
 
-        // creates index for column `unit`
+        // creates index for column `unit_type_id`
         $this->createIndex(
             '{{%idx-spare_part-unit_type_id}}',
             '{{%spare_part}}',
@@ -39,19 +40,48 @@ class m210216_145600_spare_part extends Migration
             'id',
             'CASCADE'
         );
+
+        // creates index for column `unit`
+        $this->createIndex(
+            '{{%idx-spare_part-unit_id}}',
+            '{{%spare_part}}',
+            'unit_id'
+        );
+
+        // add foreign key for table `{{%unit}}`
+        $this->addForeignKey(
+            '{{%fk-spare_part-unit_id}}',
+            '{{%spare_part}}',
+            'unit_id',
+            '{{%unit}}',
+            'id',
+            'CASCADE'
+        );
     }
 
     public function down()
     {
-        // drops foreign key for table `{{%unit}}`
+        // drops foreign key for table `{{%unit_type}}`
         $this->dropForeignKey(
             '{{%fk-spare_part-unit_type_id}}',
             '{{%spare_part}}'
         );
 
-        // drops index for column `unit`
+        // drops index for column `unit_type_id`
         $this->dropIndex(
             '{{%idx-spare_part-unit_type_id}}',
+            '{{%spare_part}}'
+        );
+
+        // drops foreign key for table `{{%unit}}`
+        $this->dropForeignKey(
+            '{{%fk-spare_part-unit_id}}',
+            '{{%spare_part}}'
+        );
+
+        // drops index for column `unit_id`
+        $this->dropIndex(
+            '{{%idx-spare_part-unit_id}}',
             '{{%spare_part}}'
         );
 

@@ -17,12 +17,42 @@ class m210216_130014_equipment extends Migration
 
         $this->createTable('{{%equipment}}', [
             'id' => $this->primaryKey(),
-            'name' => $this->string(100)->notNull()->unique()
+            'name' => $this->string(100)->notNull()->unique(),
+            'production_line_id' => $this->integer()
         ], $tableOptions);
+
+         // creates index for column `production_line_id`
+         $this->createIndex(
+            '{{%idx-equipment-production_line_id}}',
+            '{{%equipment}}',
+            'production_line_id'
+        );
+
+        // add foreign key for table `{{%production_line}}`
+        $this->addForeignKey(
+            '{{%fk-equipment-production_line_id}}',
+            '{{%equipment}}',
+            'production_line_id',
+            '{{%production_line}}',
+            'id',
+            'CASCADE'
+        );
     }
 
     public function down()
     {
+        // drops foreign key for table `{{%production_line}}`
+        $this->dropForeignKey(
+            '{{%fk-equipment-production_line_id}}',
+            '{{%equipment}}'
+        );
+
+        // drops index for column `production_line_id`
+        $this->dropIndex(
+            '{{%idx-equipment-production_line_id}}',
+            '{{%equipment}}'
+        );
+
         $this->dropTable('{{%equipment}}');
     }
 }
