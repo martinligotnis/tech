@@ -26,11 +26,19 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'producer',
             'model',
             'description:ntext',
-            'unit_type_id',
+            [
+                'attribute' => 'unit_type_id',
+                'value' => 'unit_type.name',
+                'label' => 'Detaļas tips'
+            ],
+            [
+                'attribute' => 'unit_id',
+                'value' => 'unit.name',
+                'label' => 'Mezgls'
+            ],
             //'unit_id',
 
             ['class' => 'yii\grid\ActionColumn'],

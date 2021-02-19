@@ -1,5 +1,7 @@
 <?php
 
+use backend\models\UnitType;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -18,7 +20,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'unit_type_id')->textInput() ?>
+    <?= $form->field($model, 'unit_type_id')->dropDownList(
+        ArrayHelper::map(UnitType::find()->all(), 'id' , 'name')) ?>
 
     <?= $form->field($model, 'unit_id')->textInput() ?>
 
