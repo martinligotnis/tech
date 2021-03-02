@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model backend\models\ProductionLine */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Production Lines', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Ražošanas līnijas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Vai esat pārliecināts, ka vēlaties dzēst šo ierakstu?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+            // 'id',
             'name',
         ],
     ]) ?>

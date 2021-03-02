@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\models\ProductionLine */
 
-$this->title = 'Update Production Line: ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Production Lines', 'url' => ['index']];
+$this->title = 'Atjaunot ražošanas līniju: ' . $model->name;
+$this->params['breadcrumbs'][] = ['label' => 'Ražošanas līnijas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Atjaunot';
 ?>
 <div class="production-line-update">
 

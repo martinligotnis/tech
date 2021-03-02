@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel backend\models\ProductionLineSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Production Lines';
+$this->title = 'Ražošanas līnijas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="production-line-index">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Production Line', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Izveidot jaunu līniju', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -26,7 +26,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'name',
+            [
+                'attribute' => 'name',
+                'label' => 'Nosaukums'
+            ], 
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

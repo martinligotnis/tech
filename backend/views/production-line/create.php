@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\models\ProductionLine */
 
-$this->title = 'Create Production Line';
-$this->params['breadcrumbs'][] = ['label' => 'Production Lines', 'url' => ['index']];
+$this->title = 'Izveidot ražošanas līniju';
+$this->params['breadcrumbs'][] = ['label' => 'Ražošanas līnijas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="production-line-create">

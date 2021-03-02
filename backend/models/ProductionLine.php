@@ -30,9 +30,9 @@ class ProductionLine extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
+            [['name'], 'required', 'message'=>'Nosaukums ir obligāts'],
             [['name'], 'string', 'max' => 100],
-            [['name'], 'unique'],
+            [['name'], 'unique', 'message'=>'Nosaukumam ir jābūt unikālam'],
         ];
     }
 
@@ -43,7 +43,7 @@ class ProductionLine extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'Nosaukums',
         ];
     }
 
