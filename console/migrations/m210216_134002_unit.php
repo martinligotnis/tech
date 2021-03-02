@@ -17,7 +17,8 @@ class m210216_134002_unit extends Migration
 
         $this->createTable('{{%unit}}', [
             'id' => $this->primaryKey(),
-            'equipment_id' => $this->integer(),
+            'equipment_id' => $this->integer()->notNull(),
+            'production_line_id' => $this->integer()->notNull(),
             'name' => $this->string(100)->notNull(),
             'unit_type_id' => $this->integer()->notNull(),
             'function' => $this->text()->notNull(),
@@ -26,7 +27,7 @@ class m210216_134002_unit extends Migration
             'last_maintenance' => $this->integer()->notNull(),
         ], $tableOptions);
 
-        // creates index for column `unit`
+        // creates index for column `unit_type_id`
         $this->createIndex(
             '{{%idx-unit-unit_type_id}}',
             '{{%unit}}',
@@ -39,6 +40,23 @@ class m210216_134002_unit extends Migration
             '{{%unit}}',
             'unit_type_id',
             '{{%unit_type}}',
+            'id',
+            'CASCADE'
+        );
+
+        // creates index for column `production_line_id`
+        $this->createIndex(
+            '{{%idx-unit-production_line_id}}',
+            '{{%unit}}',
+            'production_line_id'
+        );
+
+        // add foreign key for table `{{%production_line}}`
+        $this->addForeignKey(
+            '{{%fk-unit-production_line_id}}',
+            '{{%unit}}',
+            'production_line_id',
+            '{{%production_line}}',
             'id',
             'CASCADE'
         );
@@ -72,6 +90,18 @@ class m210216_134002_unit extends Migration
         // drops index for column `unit`
         $this->dropIndex(
             '{{%idx-unit-unit_type_id}}',
+            '{{%unit}}'
+        );
+
+        // drops foreign key for table `{{%production_line}}`
+        $this->dropForeignKey(
+            '{{%fk-unit-production_line_id}}',
+            '{{%unit}}'
+        );
+
+        // drops index for column `unit`
+        $this->dropIndex(
+            '{{%idx-unit-production_line_id}}',
             '{{%unit}}'
         );
 

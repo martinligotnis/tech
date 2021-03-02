@@ -35,13 +35,14 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'Unit Type', 'url' => ['/unit-type/index']]
-    ];
+    $menuItems = [];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
+        $menuItems[] = ['label' => 'Ražošanas līnijas', 'url' => ['/production-line']];
+        $menuItems[] = ['label' => 'Līnijas iekārtas', 'url' => ['/equipment']];
+        $menuItems[] = ['label' => 'Iekārtu mezgli', 'url' => ['/unit']];
+        $menuItems[] = ['label' => 'Mezglu tips', 'url' => ['/unit-type']];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(

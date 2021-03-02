@@ -17,7 +17,7 @@ class UnitSearch extends Unit
     public function rules()
     {
         return [
-            [['id', 'equipment_id', 'unit_type_id', 'service_interval', 'installation_date', 'last_maintenance'], 'integer'],
+            [['id', 'equipment_id', 'production_line_id', 'unit_type_id', 'service_interval', 'installation_date', 'last_maintenance'], 'integer'],
             [['name', 'function'], 'safe'],
         ];
     }
@@ -60,6 +60,7 @@ class UnitSearch extends Unit
         $query->andFilterWhere([
             'id' => $this->id,
             'equipment_id' => $this->equipment_id,
+            'production_line_id' => $this->production_line_id,
             'unit_type_id' => $this->unit_type_id,
             'service_interval' => $this->service_interval,
             'installation_date' => $this->installation_date,

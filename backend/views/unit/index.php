@@ -26,17 +26,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            // 'id',
-            [
-                'attribute' => 'equipment_id',
-                'value' => 'equipment.name',
-                'label' => 'Ražošanas iekārta'
-            ],
+            'id',
+            'equipment_id',
+            'production_line_id',
             'name',
-            'function:ntext',
-            'service_interval',
-            'installation_date',
-            'last_maintenance',
+            'unit_type_id',
+            //'function:ntext',
+            //'service_interval',
+            //'installation_date',
+            //'last_maintenance',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

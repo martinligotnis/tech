@@ -31,7 +31,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'equipment_id',
+            'production_line_id',
             'name',
+            'unit_type_id',
             'function:ntext',
             'service_interval',
             'installation_date',

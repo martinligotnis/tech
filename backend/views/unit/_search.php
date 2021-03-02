@@ -19,9 +19,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'equipment_id') ?>
 
+    <?= $form->field($model, 'production_line_id') ?>
+
     <?= $form->field($model, 'name') ?>
 
-    <?= $form->field($model, 'function') ?>
+    <?= $form->field($model, 'unit_type_id') ?>
+
+    <?php // echo $form->field($model, 'function') ?>
 
     <?php // echo $form->field($model, 'service_interval') ?>
 

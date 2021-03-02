@@ -2,12 +2,14 @@
 
 namespace backend\controllers;
 
+
 use Yii;
 use backend\models\Unit;
 use backend\models\UnitSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use backend\models\Equipment;
 
 /**
  * UnitController implements the CRUD actions for Unit model.
@@ -123,5 +125,21 @@ class UnitController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionLists($id)
+    {
+        $countEquipment = Equipment::find()->where(['production_line_id' => $id])->count();
+        $equipement = Equipment::find()->where(['production_line_id' => $id])->all();
+
+        if( $countEquipment > 0 ) 
+        {
+            foreach($equipement as $unit){
+                echo "<option value='" . $unit->id . "'>" . $unit->name . "</option>";
+            }
+        } else {
+            echo "<option>-</option>";
+        }
+
     }
 }

@@ -2,6 +2,7 @@
 
 use backend\models\Equipment;
 use backend\models\ProductionLine;
+use backend\models\UnitType;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -15,10 +16,33 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <?= $form->field($model, 'production_line_id')->dropDownList(
+        ArrayHelper::map(ProductionLine::find()->all(), 'id', 'name'),
+        [
+            'prompt' => 'Izvēlieties ražošanas līniju',
+            'onchange' => '
+                $.post( "index.php?r=unit/lists&id=' . '"+$(this).val(), function( data ) {
+                    $( "select#unit-equipment_id" ).html( data ); 
+                });
+            ',
+        ]
+    );?>
+
     <?= $form->field($model, 'equipment_id')->dropDownList(
-        ArrayHelper::map(Equipment::find()->all(), 'id' , 'name')) ?>
+        ArrayHelper::map(Equipment::find()->all(), 'id', 'name'),
+        [
+            'prompt' => 'Izvēlieties iekārtu',
+        ]
+    );?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'unit_type_id')->dropDownList(
+        ArrayHelper::map(UnitType::find()->all(), 'id', 'name'),
+        [
+            'prompt' => 'Izvēlieties mezgla tipu',
+        ]
+    );?>
 
     <?= $form->field($model, 'function')->textarea(['rows' => 6]) ?>
 
