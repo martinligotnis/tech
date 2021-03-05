@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\EquipmentSearch */
+/* @var $model backend\models\UnitSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="equipment-search">
+<div class="unit-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -17,9 +17,21 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'equipment_name') ?>
+    <?= $form->field($model, 'equipment_id') ?>
 
     <?= $form->field($model, 'production_line_id') ?>
+
+    <?= $form->field($model, 'name') ?>
+
+    <?= $form->field($model, 'unit_type_id') ?>
+
+    <?php // echo $form->field($model, 'function') ?>
+
+    <?php // echo $form->field($model, 'service_interval') ?>
+
+    <?php // echo $form->field($model, 'installation_date') ?>
+
+    <?php // echo $form->field($model, 'last_maintenance') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

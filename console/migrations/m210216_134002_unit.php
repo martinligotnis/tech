@@ -19,12 +19,12 @@ class m210216_134002_unit extends Migration
             'id' => $this->primaryKey(),
             'equipment_id' => $this->integer()->notNull(),
             'production_line_id' => $this->integer()->notNull(),
-            'name' => $this->string(100)->notNull(),
+            'unit_name' => $this->string(100)->notNull(),
             'unit_type_id' => $this->integer()->notNull(),
-            'function' => $this->text()->notNull(),
-            'service_interval' => $this->integer()->notNull(),
-            'installation_date' => $this->integer()->notNull(),
-            'last_maintenance' => $this->integer()->notNull(),
+            'unit_function' => $this->text()->notNull(),
+            'unit_service_interval' => $this->integer()->notNull(),
+            'unit_installation_date' => $this->integer()->notNull(),
+            'unit_last_maintenance' => $this->integer()->notNull(),
         ], $tableOptions);
 
         // creates index for column `unit_type_id`

@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "equipment".
  *
  * @property int $id
- * @property string $name
+ * @property string $equipment_name
  * @property int|null $production_line_id
  *
  * @property ProductionLine $productionLine
@@ -34,9 +34,9 @@ class Equipment extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
+            [['equipment_name'], 'required'],
             [['production_line_id'], 'integer'],
-            [['name'], 'string', 'max' => 100],
+            [['equipment_name'], 'string', 'max' => 100],
             [['production_line_id'], 'exist', 'skipOnError' => true, 'targetClass' => ProductionLine::className(), 'targetAttribute' => ['production_line_id' => 'id']],
         ];
     }
@@ -48,8 +48,8 @@ class Equipment extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'production_line_id' => 'Production Line ID',
+            'equipment_name' => 'Iekārtas nosaukums',
+            'production_line_id' => 'Ražošanas līnija',
         ];
     }
 

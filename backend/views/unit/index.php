@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel backend\models\UnitSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Units';
+$this->title = 'Ražošanas iekārtu mezgli un izejmateriāli';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="unit-index">
@@ -26,15 +26,32 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'equipment_id',
-            'production_line_id',
-            'name',
-            'unit_type_id',
-            //'function:ntext',
-            //'service_interval',
-            //'installation_date',
-            //'last_maintenance',
+            [
+                'attribute' => 'production_line_id',
+                'value' => 'productionLine.name',
+                'label' => 'Ražošanas Līnija'
+            ],  
+            [
+                'attribute' => 'equipment_id',
+                'value' => 'equipment.equipment_name',
+                'label' => 'Līnijas iekārta'
+            ],
+            'unit_name',
+            [
+                'attribute' => 'unit_type_id',
+                'value' => 'unitType.name',
+                'label' => 'Mezgla tips'
+            ],
+            [
+                'attribute' => 'next_maintenance',
+                'value' => 'next_maintenance',
+                'format' => ['date', 'm/d/Y'],
+                'label' => 'Nākamā apkope'
+            ],
+            //'unit_function:ntext',
+            //'unit_service_interval',
+            //'unit_installation_date',
+            //'unit_last_maintenance',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

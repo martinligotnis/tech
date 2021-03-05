@@ -17,8 +17,8 @@ class EquipmentSearch extends Equipment
     public function rules()
     {
         return [
-            [['id', 'production_line_id'], 'integer'],
-            [['name'], 'safe'],
+            [['id'], 'integer'],
+            [['equipment_name', 'production_line_id'], 'safe'],
         ];
     }
 
@@ -56,13 +56,16 @@ class EquipmentSearch extends Equipment
             return $dataProvider;
         }
 
+        $query->joinWith('productionLine');//pievieno 
+
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'production_line_id' => $this->production_line_id,
+            // 'production_line_id' => $this->production_line_id,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['like', 'equipment_name', $this->equipment_name])
+            ->andFilterWhere(['like', 'production_line.name', $this->production_line_id]);//production_line ir tabulas nosaukums un aiz punkta ir colonnas nosaukums
 
         return $dataProvider;
     }

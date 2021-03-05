@@ -2,13 +2,14 @@
 
 namespace backend\controllers;
 
-use backend\models\Equipment;
+
 use Yii;
 use backend\models\Unit;
 use backend\models\UnitSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use backend\models\Equipment;
 
 /**
  * UnitController implements the CRUD actions for Unit model.
@@ -134,7 +135,7 @@ class UnitController extends Controller
         if( $countEquipment > 0 ) 
         {
             foreach($equipement as $unit){
-                echo "<option value='" . $unit->id . "'>" . $unit->equipment_name . "</option>";
+                echo "<option value='" . $unit->id . "'>" . $unit->name . "</option>";
             }
         } else {
             echo "<option>-</option>";

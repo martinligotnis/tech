@@ -12,13 +12,22 @@ use backend\models\Unit;
 class UnitSearch extends Unit
 {
     /**
+     * @return void
+     */
+    public function attributes()
+    {
+        // add related fields to searchable attributes
+        return array_merge(parent::attributes(), ['sum']);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['id', 'equipment_id', 'production_line_id', 'unit_type_id', 'service_interval', 'installation_date', 'last_maintenance'], 'integer'],
-            [['name', 'function'], 'safe'],
+            [['id', 'equipment_id', 'production_line_id', 'unit_type_id', 'unit_service_interval', 'unit_installation_date', 'unit_last_maintenance', 'next_maintenance'], 'integer'],
+            [['unit_name', 'unit_function', 'next_maintenance'], 'safe'],
         ];
     }
 
@@ -40,13 +49,20 @@ class UnitSearch extends Unit
      */
     public function search($params)
     {
-        $query = Unit::find();
+        // find records, additionally selecting the sum of the 2 fields as 'next_maintenance'
+        $query = Unit::find()->select('*, (`unit_last_maintenance` + `unit_service_interval`) AS `next_maintenance`');
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
+        // enable sorting for the related columns
+        $dataProvider->sort->attributes['next_maintenance'] = [
+            'asc' => ['next_maintenance' => SORT_ASC],
+            'desc' => ['next_maintenance' => SORT_DESC],
+        ];
 
         $this->load($params);
 
@@ -62,13 +78,20 @@ class UnitSearch extends Unit
             'equipment_id' => $this->equipment_id,
             'production_line_id' => $this->production_line_id,
             'unit_type_id' => $this->unit_type_id,
-            'service_interval' => $this->service_interval,
-            'installation_date' => $this->installation_date,
-            'last_maintenance' => $this->last_maintenance,
+            'unit_service_interval' => $this->unit_service_interval,
+            'unit_installation_date' => $this->unit_installation_date,
+            'unit_last_maintenance' => $this->unit_last_maintenance,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'function', $this->function]);
+        // if the sum has a numeric filter value set, apply the filter in the HAVING clause
+        if (is_numeric($this->next_maintenance)) {
+            $query->having([
+                'next_maintenance' => $this->next_maintenance,
+            ]);
+        }
+
+        $query->andFilterWhere(['like', 'unit_name', $this->unit_name])
+            ->andFilterWhere(['like', 'unit_function', $this->unit_function]);
 
         return $dataProvider;
     }

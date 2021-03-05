@@ -21,17 +21,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'production_line_id') ?>
 
-    <?= $form->field($model, 'name') ?>
+    <?= $form->field($model, 'unit_name') ?>
 
     <?= $form->field($model, 'unit_type_id') ?>
 
-    <?php // echo $form->field($model, 'function') ?>
+    <?php // echo $form->field($model, 'unit_function') ?>
 
-    <?php // echo $form->field($model, 'service_interval') ?>
+    <?php // echo $form->field($model, 'unit_service_interval') ?>
 
-    <?php // echo $form->field($model, 'installation_date') ?>
+    <?php // echo $form->field($model, 'unit_installation_date') ?>
 
-    <?php // echo $form->field($model, 'last_maintenance') ?>
+    <?php // echo $form->field($model, 'unit_last_maintenance') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
