@@ -44,7 +44,8 @@ class Unit extends \yii\db\ActiveRecord
     {
         return [
             [['equipment_id', 'production_line_id', 'unit_name', 'unit_type_id', 'unit_function', 'unit_service_interval', 'unit_installation_date', 'unit_last_maintenance'], 'required'],
-            [['equipment_id', 'production_line_id', 'unit_type_id', 'unit_service_interval', 'unit_installation_date', 'unit_last_maintenance'], 'integer'],
+            [['equipment_id', 'production_line_id', 'unit_type_id'], 'integer'],
+            [['unit_service_interval', 'unit_last_maintenance', 'unit_installation_date'], 'safe'],
             [['unit_function'], 'string'],
             [['unit_name'], 'string', 'max' => 100],
             [['equipment_id'], 'exist', 'skipOnError' => true, 'targetClass' => Equipment::className(), 'targetAttribute' => ['equipment_id' => 'id']],

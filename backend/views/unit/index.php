@@ -26,17 +26,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            [
-                'attribute' => 'production_line_id',
-                'value' => 'productionLine.name',
-                'label' => 'Ražošanas Līnija'
-            ],  
+            'unit_name',
             [
                 'attribute' => 'equipment_id',
                 'value' => 'equipment.equipment_name',
                 'label' => 'Līnijas iekārta'
             ],
-            'unit_name',
+            [
+                'attribute' => 'production_line_id',
+                'value' => 'productionLine.name',
+                'label' => 'Ražošanas Līnija'
+            ],
             [
                 'attribute' => 'unit_type_id',
                 'value' => 'unitType.name',

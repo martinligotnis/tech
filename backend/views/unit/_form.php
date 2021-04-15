@@ -52,30 +52,47 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'unit_service_interval')->textInput() ?>
 
-    <?= $form->field($model, 'unit_installation_date')->textInput() ?>
-
     <?= $form->field($model,'unit_installation_date')->widget(DateTimePicker::classname([
-            'name' => 'datetime',
+            'name' => 'date',
             'type' => DateTimePicker::TYPE_COMPONENT_APPEND,
-            'options' => ['placeholder' => 'Выберите дату...'],
+            'options' => ['placeholder' => 'Izvēlieties datumu...'],
             'pickerIcon' => '<i class="fas fa-calendar-alt text-primary"></i>',
             'removeIcon' => '<i class="fas fa-trash text-danger"></i>',
             'pluginOptions' => [
-            'language' => 'ru',
-            'minuteStep' => '60',
-            'minView' => '2',
-            'maxView' => '2',
-            //'startView' => '3',
-            'format' => 'dd.mm.yyyy', // формат который будет передаваться в базу
-            'autoclose' => true, //авто закрытие
-            'weekStart' => 1, //с какого дня начинается неделя
-            'startDate' => date('Ymd'), //дата ниже которой нельзя установить значение
-            'todayBtn' => true, // выбрать сегодняшнюю дату
-            'todayHighlight' => true, // подсветка сегодняшнего дня
+                'language' => 'lv',
+                'minuteStep' => '60',
+                'minView' => '2',
+                'maxView' => '2',
+                //'startView' => '3',
+                'format' => 'dd.mm.yyyy', // формат который будет передаваться в базу
+                'autoclose' => true, //авто закрытие
+                'weekStart' => 1, //с какого дня начинается неделя
+                'startDate' => date('Ymd'), //дата ниже которой нельзя установить значение
+                'todayBtn' => true, // выбрать сегодняшнюю дату
+                'todayHighlight' => true, // подсветка сегодняшнего дня
             ]
         ]));?>
 
-    <?= $form->field($model, 'unit_last_maintenance')->textInput() ?>
+    <?= $form->field($model,'unit_last_maintenance')->widget(DateTimePicker::classname([
+            'name' => 'date',
+            'type' => DateTimePicker::TYPE_COMPONENT_APPEND,
+            'options' => ['placeholder' => 'Izvēlieties datumu...'],
+            'pickerIcon' => '<i class="fas fa-calendar-alt text-primary"></i>',
+            'removeIcon' => '<i class="fas fa-trash text-danger"></i>',
+            'pluginOptions' => [
+                'language' => 'lv',
+                'minuteStep' => '60',
+                'minView' => '2',
+                'maxView' => '2',
+                //'startView' => '3',
+                'format' => 'dd.mm.yyyy', // формат который будет передаваться в базу
+                'autoclose' => true, //авто закрытие
+                'weekStart' => 1, //с какого дня начинается неделя
+                'startDate' => date('Ymd'), //дата ниже которой нельзя установить значение
+                'todayBtn' => true, // выбрать сегодняшнюю дату
+                'todayHighlight' => true, // подсветка сегодняшнего дня
+            ]
+        ]));?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

@@ -35,6 +35,8 @@ class ProductionLineController extends Controller
      */
     public function actionIndex()
     {
+        $this->mustBeLoggedIn();
+
         $searchModel = new ProductionLineSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -52,6 +54,8 @@ class ProductionLineController extends Controller
      */
     public function actionView($id)
     {
+        $this->mustBeLoggedIn();
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -64,6 +68,8 @@ class ProductionLineController extends Controller
      */
     public function actionCreate()
     {
+        $this->mustBeLoggedIn();
+
         $model = new ProductionLine();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -84,6 +90,8 @@ class ProductionLineController extends Controller
      */
     public function actionUpdate($id)
     {
+        $this->mustBeLoggedIn();
+
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -104,6 +112,8 @@ class ProductionLineController extends Controller
      */
     public function actionDelete($id)
     {
+        $this->mustBeLoggedIn();
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -123,5 +133,17 @@ class ProductionLineController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    /**
+     * Checks if user is logged in, if not redirects to login page
+     * Used to check in action methods
+     * 
+     * @return void 
+     */
+    protected function mustBeLoggedIn(){
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
     }
 }

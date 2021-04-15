@@ -35,6 +35,8 @@ class EquipmentController extends Controller
      */
     public function actionIndex()
     {
+        $this->mustBeLoggedIn();
+        
         $searchModel = new EquipmentSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->pagination = ['pageSize' => 40,];
@@ -53,6 +55,8 @@ class EquipmentController extends Controller
      */
     public function actionView($id)
     {
+        $this->mustBeLoggedIn();
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -65,6 +69,8 @@ class EquipmentController extends Controller
      */
     public function actionCreate()
     {
+        $this->mustBeLoggedIn();
+
         $model = new Equipment();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -85,6 +91,8 @@ class EquipmentController extends Controller
      */
     public function actionUpdate($id)
     {
+        $this->mustBeLoggedIn();
+
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -105,6 +113,8 @@ class EquipmentController extends Controller
      */
     public function actionDelete($id)
     {
+        $this->mustBeLoggedIn();
+
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -124,5 +134,17 @@ class EquipmentController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    /**
+     * Checks if user is logged in, if not redirects to login page
+     * Used to check in action methods
+     * 
+     * @return void 
+     */
+    protected function mustBeLoggedIn(){
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
     }
 }

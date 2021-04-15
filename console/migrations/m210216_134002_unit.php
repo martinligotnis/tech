@@ -23,8 +23,8 @@ class m210216_134002_unit extends Migration
             'unit_type_id' => $this->integer()->notNull(),
             'unit_function' => $this->text()->notNull(),
             'unit_service_interval' => $this->integer()->notNull(),
-            'unit_installation_date' => $this->integer()->notNull(),
-            'unit_last_maintenance' => $this->integer()->notNull(),
+            'unit_installation_date' => $this->dateTime()->notNull(),
+            'unit_last_maintenance' => $this->dateTime()->notNull(),
         ], $tableOptions);
 
         // creates index for column `unit_type_id`

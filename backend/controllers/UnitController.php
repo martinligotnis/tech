@@ -36,6 +36,8 @@ class UnitController extends Controller
      */
     public function actionIndex()
     {
+        $this->mustBeLoggedIn();
+        
         $searchModel = new UnitSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -53,6 +55,8 @@ class UnitController extends Controller
      */
     public function actionView($id)
     {
+        $this->mustBeLoggedIn();
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -65,6 +69,8 @@ class UnitController extends Controller
      */
     public function actionCreate()
     {
+        $this->mustBeLoggedIn();
+
         $model = new Unit();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -85,6 +91,8 @@ class UnitController extends Controller
      */
     public function actionUpdate($id)
     {
+        $this->mustBeLoggedIn();
+
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -105,6 +113,8 @@ class UnitController extends Controller
      */
     public function actionDelete($id)
     {
+        $this->mustBeLoggedIn();
+
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -128,6 +138,8 @@ class UnitController extends Controller
 
     public function actionLists($id)
     {
+        $this->mustBeLoggedIn();
+
         $countEquipment = Equipment::find()->where(['production_line_id' => $id])->count();
         $equipement = Equipment::find()->where(['production_line_id' => $id])->all();
 
@@ -140,5 +152,17 @@ class UnitController extends Controller
             echo "<option>-</option>";
         }
 
+    }
+
+    /**
+     * Checks if user is logged in, if not redirects to login page
+     * Used to check in action methods
+     * 
+     * @return void 
+     */
+    protected function mustBeLoggedIn(){
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
     }
 }

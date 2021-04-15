@@ -42,7 +42,8 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Ražošanas līnijas', 'url' => ['/production-line']];
         $menuItems[] = ['label' => 'Līnijas iekārtas', 'url' => ['/equipment']];
         $menuItems[] = ['label' => 'Iekārtu mezgli', 'url' => ['/unit']];
-        $menuItems[] = ['label' => 'Mezglu tips', 'url' => ['/unit-type']];
+        $menuItems[] = ['label' => 'Mezglu tipi', 'url' => ['/unit-type']];
+        $menuItems[] = ['label' => 'Rezerves daļas', 'url' => ['/spare-part']];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
