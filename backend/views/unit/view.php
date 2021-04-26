@@ -16,8 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Atjaunot', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Dzēst', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -30,10 +30,22 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'equipment_id',
-            'production_line_id',
             'unit_name',
-            'unit_type_id',
+            [
+                'attribute' => 'production_line_id',
+                'value' => $model->productionLine->name,
+                'label' => 'Ražošanas Līnija'
+            ],
+            [
+                'attribute' => 'equipment_id',
+                'value' => $model->equipment->equipment_name,
+                'label' => 'Līnijas Iekārta'
+            ],
+            [
+                'attribute' => 'production_line_id',
+                'value' => $model->unitType->name,
+                'label' => 'Mezgla tips'
+            ],
             'unit_function:ntext',
             'unit_service_interval',
             'unit_installation_date',

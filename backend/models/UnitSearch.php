@@ -66,7 +66,7 @@ class UnitSearch extends Unit
         equipment.equipment_name AS equipment_name, 
         production_line.name AS line_name, 
         unit_type.name AS unit_type_name, 
-        (unit_last_maintenance + unit_service_interval) AS `next_maintenance`');
+        (unit_last_maintenance + INTERVAL unit_service_interval HOUR) AS `next_maintenance`');
 
         $query->joinWith('unitType')->joinWith('equipment')->joinWith('productionLine');
 
@@ -113,13 +113,13 @@ class UnitSearch extends Unit
             return $dataProvider;
         }
 
-        // if the sum has a numeric filter value set, apply the filter in the HAVING clause
-        if (is_numeric($this->next_maintenance)) {
-            $query->having([
-                'next_maintenance' => $this->next_maintenance,
-            ]);
-        }
-
+        // // if the sum has a numeric filter value set, apply the filter in the HAVING clause
+        // if (is_numeric($this->next_maintenance)) {
+        //     $query->having([
+        //         'next_maintenance' => strtotime($this->next_maintenance . "hours"),
+        //     ]);
+        // }
+        // var_dump($this->next_maintenance);  exit();
         $query->andFilterWhere ( [ 'OR' ,
             [ 'like' , 'unit_name' , $this->unit_name ],
             [ 'like' , 'unit_function' , $this->unit_function ],

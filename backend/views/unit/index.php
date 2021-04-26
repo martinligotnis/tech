@@ -1,5 +1,6 @@
 <?php
 
+use yii\base\Model;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -9,17 +10,23 @@ use yii\grid\GridView;
 
 $this->title = 'Ražošanas iekārtu mezgli un izejmateriāli';
 $this->params['breadcrumbs'][] = $this->title;
+
+// if($this->next_maintenance < $this->unit_last_maintenance){
+//     $class = 'red';
+// } else {
+//     $class = 'green';
+// }
 ?>
 <div class="unit-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Unit', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Izveidot mezglu', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+    
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -45,8 +52,18 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'next_maintenance',
                 'value' => 'next_maintenance',
-                'format' => ['date', 'm/d/Y'],
-                'label' => 'Nākamā apkope'
+                'format' => 'date',
+                'label' => 'Nākamā apkope',                
+                'contentOptions' => function($model){
+                    if( strtotime($model->next_maintenance) < strtotime(date("Y/m/d")) )
+                    {
+                        return ['class' => 'past-due'];
+                    }
+                    else
+                    { 
+                        return ['class' => 'on-time'];
+                    }                    
+                },
             ],
             //'unit_function:ntext',
             //'unit_service_interval',

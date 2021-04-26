@@ -133,13 +133,13 @@ class Unit extends \yii\db\ActiveRecord
         return $this->hasMany(Equipment::className(), ['id' => 'equipment_id'])->viaTable('unit_equipment', ['unit_id' => 'id']);
     }
 
-    public function getNextMaintenance(){
-        $this->next_maintenance = 0;
+    // public function getNextMaintenance(){
+    //     $this->next_maintenance = 0;
 
-        if (is_numeric($this->unit_last_maintenance) && is_numeric($this->unit_service_interval)) {
-            $this->next_maintenance = $this->unit_last_maintenance + $this->unit_service_interval;
-        }
+    //     if (is_numeric($this->unit_last_maintenance) && is_numeric($this->unit_service_interval)) {
+    //         $this->next_maintenance = $this->unit_last_maintenance + $this->unit_service_interval;
+    //     }
 
-        return $this->next_maintenance;
-    }
+    //     return $this->next_maintenance;
+    // }
 }
