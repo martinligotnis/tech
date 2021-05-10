@@ -17,15 +17,27 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
+    <?= $form->field($model, 'part_name') ?>
+
     <?= $form->field($model, 'producer') ?>
 
     <?= $form->field($model, 'model') ?>
 
-    <?= $form->field($model, 'description') ?>
+    <?= $form->field($model, 'count') ?>
 
-    <?= $form->field($model, 'unit_type_id') ?>
+    <?php // echo $form->field($model, 'description') ?>
+
+    <?php // echo $form->field($model, 'production_line_id') ?>
+
+    <?php // echo $form->field($model, 'equipment_id') ?>
 
     <?php // echo $form->field($model, 'unit_id') ?>
+
+    <?php // echo $form->field($model, 'unit_type_id') ?>
+
+    <?= $form->field($model, 'in_stock') ?>
+
+    <?= $form->field($model, 'min_stock_quantity') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

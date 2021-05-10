@@ -16,7 +16,7 @@ class UnitSearch extends Unit
      * @return void
      */
     public function attributes()
-    {
+    {   
         // add related fields to searchable attributes
         return array_merge(parent::attributes(), ['sum']);
     }
@@ -27,7 +27,7 @@ class UnitSearch extends Unit
     public function rules()
     {
         return [
-            [['id', 'unit_service_interval'], 'integer'],
+            [['id', 'unit_service_interval', 'extra_maintenance'], 'integer'],
             [['unit_name', 'unit_function', 'next_maintenance', 'unit_last_maintenance', 'unit_installation_date', 'unit_type_id', 'production_line_id', 'equipment_id'], 'safe'],
         ];
     }
@@ -63,6 +63,7 @@ class UnitSearch extends Unit
         unit.unit_service_interval, 
         unit.unit_installation_date, 
         unit.unit_last_maintenance, 
+        unit.extra_maintenance, 
         equipment.equipment_name AS equipment_name, 
         production_line.name AS line_name, 
         unit_type.name AS unit_type_name, 

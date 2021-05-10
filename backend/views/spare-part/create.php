@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\models\SparePart */
 
-$this->title = 'Create Spare Part';
-$this->params['breadcrumbs'][] = ['label' => 'Spare Parts', 'url' => ['index']];
+$this->title = 'Izveidot Mezgla daļu';
+$this->params['breadcrumbs'][] = ['label' => 'Rezerves daļas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="spare-part-create">

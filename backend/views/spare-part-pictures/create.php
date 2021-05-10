@@ -3,13 +3,13 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\Unit */
+/* @var $model backend\models\SparePartPictures */
 
-$this->title = 'Izveidot mezglu';
-$this->params['breadcrumbs'][] = ['label' => 'Units', 'url' => ['index']];
+$this->title = 'Create Spare Part Pictures';
+$this->params['breadcrumbs'][] = ['label' => 'Spare Part Pictures', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="unit-create">
+<div class="spare-part-pictures-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

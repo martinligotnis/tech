@@ -17,8 +17,8 @@ class SparePartSearch extends SparePart
     public function rules()
     {
         return [
-            [['id', 'unit_type_id', 'unit_id'], 'integer'],
-            [['producer', 'model', 'description'], 'safe'],
+            [['id', 'count', 'in_stock', 'min_stock_quantity'], 'integer'],
+            [['part_name', 'producer', 'model', 'description', 'production_line_id', 'equipment_id', 'unit_id', 'unit_type_id'], 'safe'],
         ];
     }
 
@@ -40,7 +40,25 @@ class SparePartSearch extends SparePart
      */
     public function search($params)
     {
-        $query = SparePart::find();
+        $query = SparePart::find()->select('
+        spare_part.id, 
+        spare_part.part_name, 
+        spare_part.producer, 
+        spare_part.model, 
+        spare_part.count, 
+        spare_part.description, 
+        spare_part.production_line_id, 
+        spare_part.equipment_id, 
+        spare_part.unit_id, 
+        spare_part.unit_type_id, 
+        spare_part.in_stock, 
+        spare_part.min_stock_quantity, 
+        equipment.equipment_name AS equipment_name, 
+        production_line.name AS line_name, 
+        unit_type.name AS unit_type_name, 
+        unit.unit_name AS unit_name');
+
+        $query->joinWith('equipment')->joinWith('productionLine')->joinWith('unitType')->joinWith('unit');
 
         // add conditions that should always apply here
 
@@ -56,16 +74,18 @@ class SparePartSearch extends SparePart
             return $dataProvider;
         }
 
-        // grid filtering conditions
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'unit_type_id' => $this->unit_type_id,
-            'unit_id' => $this->unit_id,
-        ]);
-
-        $query->andFilterWhere(['like', 'producer', $this->producer])
-            ->andFilterWhere(['like', 'model', $this->model])
-            ->andFilterWhere(['like', 'description', $this->description]);
+        $query->andFilterWhere ( [ 'OR' ,
+            [ 'like' , 'part_name' , $this->part_name ],
+            [ 'like' , 'in_stock' , $this->in_stock ],
+            [ 'like' , 'min_stock_quantity' , $this->min_stock_quantity ],
+            [ 'like' , 'producer' , $this->producer ],
+            [ 'like' , 'model' , $this->model ],
+            [ 'like' , 'count' , $this->count ],
+            [ 'like' , 'unit_type.name' , $this->unit_type_id ],
+            [ 'like' , 'production_line.name' , $this->production_line_id ],
+            [ 'like' , 'equipment.equipment_name' , $this->equipment_id ],
+            [ 'like' , 'unit.unit_name' , $this->unit_id ],
+        ] );
 
         return $dataProvider;
     }

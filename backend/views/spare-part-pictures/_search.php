@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\UnitSearch */
+/* @var $model backend\models\SparePartPicturesSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="unit-search">
+<div class="spare-part-pictures-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -17,21 +17,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'equipment_id') ?>
+    <?= $form->field($model, 'spare_part_id') ?>
 
-    <?= $form->field($model, 'production_line_id') ?>
+    <?= $form->field($model, 'url') ?>
 
-    <?= $form->field($model, 'name') ?>
-
-    <?= $form->field($model, 'unit_type_id') ?>
-
-    <?php // echo $form->field($model, 'function') ?>
-
-    <?php // echo $form->field($model, 'service_interval') ?>
-
-    <?php // echo $form->field($model, 'installation_date') ?>
-
-    <?php // echo $form->field($model, 'last_maintenance') ?>
+    <?= $form->field($model, 'picture_name') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

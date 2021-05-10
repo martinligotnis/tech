@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use backend\models\SparePart;
 use backend\models\SparePartSearch;
+use backend\models\Unit;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -35,8 +36,6 @@ class SparePartController extends Controller
      */
     public function actionIndex()
     {
-        $this->mustBeLoggedIn();
-        
         $searchModel = new SparePartSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -54,8 +53,6 @@ class SparePartController extends Controller
      */
     public function actionView($id)
     {
-        $this->mustBeLoggedIn();
-
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -68,8 +65,6 @@ class SparePartController extends Controller
      */
     public function actionCreate()
     {
-        $this->mustBeLoggedIn();
-
         $model = new SparePart();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -90,8 +85,6 @@ class SparePartController extends Controller
      */
     public function actionUpdate($id)
     {
-        $this->mustBeLoggedIn();
-
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -112,8 +105,6 @@ class SparePartController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->mustBeLoggedIn();
-
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -135,15 +126,56 @@ class SparePartController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    /**
-     * Checks if user is logged in, if not redirects to login page
-     * Used to check in action methods
-     * 
-     * @return void 
-     */
-    protected function mustBeLoggedIn(){
-        if (Yii::$app->user->isGuest) {
-            return $this->goHome();
+    public function actionLists($id)
+    {
+        $countUnits = Unit::find()->where(['equipment_id' => $id])->count();
+        $units = Unit::find()->where(['equipment_id' => $id])->all();
+
+        if( $countUnits > 0 ) 
+        {
+            foreach($units as $part){
+                echo "<option value='" . $part->id . "'>" . $part->unit_name . "</option>";
+            }
+        } else {
+                echo "<option>-</option>";
         }
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param integer $id
+     * @param integer $count
+     * @return void
+     */
+    public function reduceInventory(int $id, int $count)
+    {
+        if ( $this->findModel($id)->in_stock != 0){
+            $inventory = $this->findModel($id)->in_stock - $count;
+        } else {
+
+        }
+        
+
+        return ;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param integer $id
+     * @param integer $count
+     * @return void
+     */
+    public function addToInventory($id, $count)
+    {
+        if ( $this->findModel($id)->in_stock != 0){
+            $inventory = $this->findModel($id)->in_stock + $count;
+        } else {
+
+        }
+        
+
+        return ;
     }
 }

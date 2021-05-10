@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\models\SparePart */
 
-$this->title = 'Update Spare Part: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Spare Parts', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->title = 'Atjaunot mezgla daļu: ' . $model->part_name;
+$this->params['breadcrumbs'][] = ['label' => 'Mezgla daļas', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->part_name, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = 'Atjaunot';
 ?>
 <div class="spare-part-update">
 

@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel backend\models\SparePartSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Spare Parts';
+$this->title = 'Mezglu daļas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="spare-part-index">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Spare Part', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Izveidot Mezgla daļu', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -26,20 +26,30 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
+            // 'id',
+            'part_name',
             'producer',
             'model',
-            'description:ntext',
+            'count',
+            //'description:ntext',
             [
-                'attribute' => 'unit_type_id',
-                'value' => 'unit_type.name',
-                'label' => 'Detaļas tips'
+                'attribute' => 'production_line_id',
+                'value' => 'productionLine.name',
+                'label' => 'Ražošanas līnija'
+            ],
+            [
+                'attribute' => 'equipment_id',
+                'value' => 'equipment.equipment_name',
+                'label' => 'Līnijas iekārta'
             ],
             [
                 'attribute' => 'unit_id',
-                'value' => 'unit.name',
-                'label' => 'Mezgls'
+                'value' => 'unit.unit_name',
+                'label' => 'Iekārtas mezgls'
             ],
-            //'unit_id',
+            //'unit_type_id',
+            'in_stock',
+            'min_stock_quantity',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -2,18 +2,17 @@
 
 namespace backend\controllers;
 
-use backend\models\Equipment;
 use Yii;
-use backend\models\Unit;
-use backend\models\UnitSearch;
+use backend\models\SparePartPictures;
+use backend\models\SparePartPicturesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * UnitController implements the CRUD actions for Unit model.
+ * SparePartPicturesController implements the CRUD actions for SparePartPictures model.
  */
-class UnitController extends Controller
+class SparePartPicturesController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -31,14 +30,12 @@ class UnitController extends Controller
     }
 
     /**
-     * Lists all Unit models.
+     * Lists all SparePartPictures models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $this->mustBeLoggedIn();
-        
-        $searchModel = new UnitSearch();
+        $searchModel = new SparePartPicturesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -48,30 +45,26 @@ class UnitController extends Controller
     }
 
     /**
-     * Displays a single Unit model.
+     * Displays a single SparePartPictures model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
-        $this->mustBeLoggedIn();
-
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
     }
 
     /**
-     * Creates a new Unit model.
+     * Creates a new SparePartPictures model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $this->mustBeLoggedIn();
-
-        $model = new Unit();
+        $model = new SparePartPictures();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -83,7 +76,7 @@ class UnitController extends Controller
     }
 
     /**
-     * Updates an existing Unit model.
+     * Updates an existing SparePartPictures model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -91,8 +84,6 @@ class UnitController extends Controller
      */
     public function actionUpdate($id)
     {
-        $this->mustBeLoggedIn();
-
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -105,7 +96,7 @@ class UnitController extends Controller
     }
 
     /**
-     * Deletes an existing Unit model.
+     * Deletes an existing SparePartPictures model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -113,54 +104,24 @@ class UnitController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->mustBeLoggedIn();
-
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Unit model based on its primary key value.
+     * Finds the SparePartPictures model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Unit the loaded model
+     * @return SparePartPictures the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Unit::findOne($id)) !== null) {
+        if (($model = SparePartPictures::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
-    }
-
-    public function actionLists($id)
-    {
-        $countEquipment = Equipment::find()->where(['production_line_id' => $id])->count();
-        $equipement = Equipment::find()->where(['production_line_id' => $id])->all();
-
-        if( $countEquipment > 0 ) 
-        {
-            foreach($equipement as $unit){
-                echo "<option value='" . $unit->id . "'>" . $unit->equipment_name . "</option>";
-            }
-        } else {
-            echo "<option>-</option>";
-        }
-
-    }
-
-    /**
-     * Checks if user is logged in, if not redirects to login page
-     * Used to check in action methods
-     * 
-     * @return void 
-     */
-    protected function mustBeLoggedIn(){
-        if (Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
     }
 }

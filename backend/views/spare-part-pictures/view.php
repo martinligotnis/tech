@@ -4,14 +4,14 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\Unit */
+/* @var $model backend\models\SparePartPictures */
 
-$this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Units', 'url' => ['index']];
+$this->title = $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Spare Part Pictures', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="unit-view">
+<div class="spare-part-pictures-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -30,14 +30,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'equipment_id',
-            'production_line_id',
-            'name',
-            'unit_type_id',
-            'function:ntext',
-            'service_interval',
-            'installation_date',
-            'last_maintenance',
+            'spare_part_id',
+            'url:url',
+            'picture_name',
         ],
     ]) ?>
 
