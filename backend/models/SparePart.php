@@ -112,4 +112,24 @@ class SparePart extends \yii\db\ActiveRecord
     {
         return $this->hasOne(UnitType::className(), ['id' => 'unit_type_id']);
     }
+
+    /**
+     * Makes query to change inventory amount for spare_part
+     *
+     * @param integer $id
+     * @param integer $count
+     * @return void
+     */
+    public function changeInventory(int $id, int $count)
+    {
+        $inventory = $this->in_stock;
+        $finalAmount = $inventory - $count;
+
+        if ( $inventory > 0 && $finalAmount > 0 ){
+            return $finalAmount;             
+        } else {
+            return 'nav adekvāts';
+        }
+    }
+
 }

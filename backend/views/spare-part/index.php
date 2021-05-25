@@ -1,5 +1,6 @@
 <?php
 
+use backend\models\SparePart;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -35,17 +36,17 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'production_line_id',
                 'value' => 'productionLine.name',
-                'label' => 'Ražošanas līnija'
+                'label' => 'Ražošanas līnija',
             ],
             [
                 'attribute' => 'equipment_id',
                 'value' => 'equipment.equipment_name',
-                'label' => 'Līnijas iekārta'
+                'label' => 'Līnijas iekārta',
             ],
             [
                 'attribute' => 'unit_id',
                 'value' => 'unit.unit_name',
-                'label' => 'Iekārtas mezgls'
+                'label' => 'Iekārtas mezgls',
             ],
             //'unit_type_id',
             'in_stock',

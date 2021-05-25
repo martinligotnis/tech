@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use backend\models\Equipment;
 use backend\models\EquipmentSearch;
+use backend\models\ProductionLineEquipment;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -72,8 +73,15 @@ class EquipmentController extends Controller
         $this->mustBeLoggedIn();
 
         $model = new Equipment();
+        $relationTable = new ProductionLineEquipment();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            $relation = new ProductionLineEquipment(); 
+            $relation->production_line_id = $model->production_line_id; //project's Id the one we just saved
+            $relation->equipment_id = $model->id; //user's Id, if you have a login
+            $relation->save();
+            
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -94,6 +102,7 @@ class EquipmentController extends Controller
         $this->mustBeLoggedIn();
 
         $model = $this->findModel($id);
+
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

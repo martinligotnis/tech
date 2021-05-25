@@ -55,6 +55,7 @@ class SparePartController extends Controller
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'final_amount' => $this->findModel($id)->changeInventory($id,-5),
         ]);
     }
 
@@ -139,43 +140,5 @@ class SparePartController extends Controller
         } else {
                 echo "<option>-</option>";
         }
-    }
-
-    /**
-     * Undocumented function
-     *
-     * @param integer $id
-     * @param integer $count
-     * @return void
-     */
-    public function reduceInventory(int $id, int $count)
-    {
-        if ( $this->findModel($id)->in_stock != 0){
-            $inventory = $this->findModel($id)->in_stock - $count;
-        } else {
-
-        }
-        
-
-        return ;
-    }
-
-    /**
-     * Undocumented function
-     *
-     * @param integer $id
-     * @param integer $count
-     * @return void
-     */
-    public function addToInventory($id, $count)
-    {
-        if ( $this->findModel($id)->in_stock != 0){
-            $inventory = $this->findModel($id)->in_stock + $count;
-        } else {
-
-        }
-        
-
-        return ;
     }
 }

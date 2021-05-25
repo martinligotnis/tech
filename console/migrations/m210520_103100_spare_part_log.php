@@ -3,9 +3,9 @@
 use yii\db\Migration;
 
 /**
- * Class m210510_103100_spare_part_pictures
+ * Class m210520_103100_spare_part_log
  */
-class m210510_103100_spare_part_pictures extends Migration
+class m210520_103100_spare_part_log extends Migration
 {
     public function up()
     {
@@ -15,24 +15,25 @@ class m210510_103100_spare_part_pictures extends Migration
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
 
-        $this->createTable('{{%spare_part_pictures}}', [
+        $this->createTable('{{%spare_part_log}}', [
             'id'                    => $this->primaryKey(),
             'spare_part_id'         => $this->integer()->notNull(),
-            'url'                   => $this->string(500)->notNull(),
-            'picture_name'          => $this->string(100)->notNull(),
+            'date'                  => $this->dateTime()->notNull(),
+            'status'                => $this->string(100)->notNull(),
+            'coments'               => $this->text(),
         ], $tableOptions);
 
         // creates index for column `unit_type_id`
         $this->createIndex(
-            '{{%idx-spare_part_pictures-spare_part_id}}',
-            '{{%spare_part_pictures}}',
+            '{{%idx-spare_part_log-spare_part_id}}',
+            '{{%spare_part_log}}',
             'spare_part_id'
         );
 
         // add foreign key for table `{{%unit_type}}`
         $this->addForeignKey(
-            '{{%fk-spare_part_pictures-spare_part_id}}',
-            '{{%spare_part_pictures}}',
+            '{{%fk-spare_part_log-spare_part_id}}',
+            '{{%spare_part_log}}',
             'spare_part_id',
             '{{%spare_part}}',
             'id',
@@ -44,16 +45,16 @@ class m210510_103100_spare_part_pictures extends Migration
     {
         // drops foreign key for table `{{%unit_type}}`
         $this->dropForeignKey(
-            '{{%fk-spare_part_pictures-spare_part_id}}',
-            '{{%spare_part_pictures}}'
+            '{{%fk-spare_part_log-spare_part_id}}',
+            '{{%spare_part_log}}'
         );
 
         // drops index for column `unit_type_id`
         $this->dropIndex(
-            '{{%idx-spare_part_pictures-spare_part_id}}',
-            '{{%spare_part_pictures}}'
+            '{{%idx-spare_part_log-spare_part_id}}',
+            '{{%spare_part_log}}'
         );
 
-        $this->dropTable('{{%spare_part_pictures}}');
+        $this->dropTable('{{%spare_part_log}}');
     }
 }

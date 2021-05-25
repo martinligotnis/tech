@@ -30,10 +30,10 @@ class SparePartPictures extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['spare_part_id', 'url', 'picture_name'], 'required'],
             [['spare_part_id'], 'integer'],
             [['url'], 'string', 'max' => 500],
             [['picture_name'], 'string', 'max' => 100],
+            [['spare_part_id', 'url', 'picture_name'], 'safe'],
             [['spare_part_id'], 'exist', 'skipOnError' => true, 'targetClass' => SparePart::className(), 'targetAttribute' => ['spare_part_id' => 'id']],
         ];
     }

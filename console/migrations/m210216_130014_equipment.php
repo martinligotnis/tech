@@ -30,7 +30,7 @@ class m210216_130014_equipment extends Migration
 
         // add foreign key for table `{{%production_line}}`
         $this->addForeignKey(
-            '{{%fk-equipment-production_line_id}}',
+            '{{%fk-equipment-production_line_id}}', 
             '{{%equipment}}',
             'production_line_id',
             '{{%production_line}}',
