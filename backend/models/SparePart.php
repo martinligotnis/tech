@@ -13,17 +13,20 @@ use Yii;
  * @property string $model
  * @property int $count
  * @property string|null $description
+ * @property int $in_stock
+ * @property int $min_stock_quantity
  * @property int $production_line_id
  * @property int $equipment_id
  * @property int $unit_id
  * @property int $unit_type_id
- * @property int $in_stock
- * @property int $min_stock_quantity
  *
+ * @property MaintenanceSparePart[] $maintenanceSpareParts
+ * @property Maintenance[] $maintenances
  * @property Equipment $equipment
  * @property ProductionLine $productionLine
  * @property Unit $unit
  * @property UnitType $unitType
+ * @property SparePartPictures[] $sparePartPictures
  */
 class SparePart extends \yii\db\ActiveRecord
 {
@@ -41,8 +44,8 @@ class SparePart extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['part_name', 'producer', 'model', 'count', 'production_line_id', 'equipment_id', 'unit_id', 'unit_type_id', 'in_stock', 'min_stock_quantity'], 'required'],
-            [['count', 'production_line_id', 'equipment_id', 'unit_id', 'unit_type_id', 'in_stock', 'min_stock_quantity'], 'integer'],
+            [['part_name', 'producer', 'model', 'count', 'in_stock', 'production_line_id', 'equipment_id', 'unit_id', 'unit_type_id'], 'required'],
+            [['count', 'in_stock', 'min_stock_quantity', 'production_line_id', 'equipment_id', 'unit_id', 'unit_type_id'], 'integer'],
             [['description'], 'string'],
             [['part_name', 'producer', 'model'], 'string', 'max' => 100],
             [['equipment_id'], 'exist', 'skipOnError' => true, 'targetClass' => Equipment::className(), 'targetAttribute' => ['equipment_id' => 'id']],
@@ -64,13 +67,33 @@ class SparePart extends \yii\db\ActiveRecord
             'model' => 'Modelis',
             'count' => 'Skaits',
             'description' => 'Apraksts',
+            'in_stock' => 'Noliktava',
+            'min_stock_quantity' => 'Min Noliktavas apjoms',
             'production_line_id' => 'Ražošanas līnija',
             'equipment_id' => 'Līnijas iekārta',
             'unit_id' => 'Iekārtas mezgls',
             'unit_type_id' => 'Mezgla tips',
-            'in_stock' => 'Noliktava',
-            'min_stock_quantity' => 'Min skaits noliktavā',
         ];
+    }
+
+    /**
+     * Gets query for [[MaintenanceSpareParts]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMaintenanceSpareParts()
+    {
+        return $this->hasMany(MaintenanceSparePart::className(), ['spare_part_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Maintenances]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMaintenances()
+    {
+        return $this->hasMany(Maintenance::className(), ['id' => 'maintenance_id'])->viaTable('maintenance_spare_part', ['spare_part_id' => 'id']);
     }
 
     /**
@@ -114,6 +137,16 @@ class SparePart extends \yii\db\ActiveRecord
     }
 
     /**
+     * Gets query for [[SparePartPictures]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSparePartPictures()
+    {
+        return $this->hasMany(SparePartPictures::className(), ['spare_part_id' => 'id']);
+    }
+
+     /**
      * Makes query to change inventory amount for spare_part
      *
      * @param integer $id
@@ -131,5 +164,4 @@ class SparePart extends \yii\db\ActiveRecord
             return 'nav adekvāts';
         }
     }
-
 }

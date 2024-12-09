@@ -43,7 +43,7 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Līnijas iekārtas', 'url' => ['/equipment']];
         $menuItems[] = ['label' => 'Iekārtu mezgli', 'url' => ['/unit']];
         $menuItems[] = ['label' => 'Mezglu tipi', 'url' => ['/unit-type']];
-        $menuItems[] = ['label' => 'Mezgla daļas', 'url' => ['/spare-part']];
+        $menuItems[] = ['label' => 'Rezerves daļas', 'url' => ['/spare-part']];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(

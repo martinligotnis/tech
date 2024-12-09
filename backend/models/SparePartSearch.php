@@ -38,7 +38,7 @@ class SparePartSearch extends SparePart
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $pageSize = 50)
     {
         $query = SparePart::find()->select('
         spare_part.id, 
@@ -64,6 +64,9 @@ class SparePartSearch extends SparePart
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => $pageSize,  // no pagination if it is 0
+            ],
         ]);
 
         $this->load($params);

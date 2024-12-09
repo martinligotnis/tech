@@ -47,7 +47,6 @@ $this->title = 'My Yii Application';
             'condensed' => true,
             'hover' => true,
             'striped' => false,
-
         ]); ?>          
     </div>
 </div>

@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model backend\models\SparePart */
 
 $this->title = $model->part_name;
-$this->params['breadcrumbs'][] = ['label' => 'Mezgla daļas', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Rezerves daļas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -41,6 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'unit_type_id',
             'in_stock',
             'min_stock_quantity',
+            'final_amount',
         ],
     ]) ?>
 

@@ -17,7 +17,7 @@ class m210216_130014_equipment extends Migration
 
         $this->createTable('{{%equipment}}', [
             'id' => $this->primaryKey(),
-            'equipment_name' => $this->string(100)->notNull()->unique(),
+            'equipment_name' => $this->string(100)->notNull(),
             'production_line_id' => $this->integer()
         ], $tableOptions);
 
